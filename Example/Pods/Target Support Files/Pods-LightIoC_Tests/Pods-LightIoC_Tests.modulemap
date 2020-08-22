@@ -1,0 +1,6 @@
+framework module Pods_LightIoC_Tests {
+  umbrella header "Pods-LightIoC_Tests-umbrella.h"
+
+  export *
+  module * { export * }
+}

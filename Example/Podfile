@@ -1,0 +1,6 @@
+use_frameworks!
+target 'LightIoC_Tests' do
+  pod 'LightIoC', :path => '../'
+  
+  
+end

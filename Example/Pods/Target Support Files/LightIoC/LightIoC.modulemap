@@ -1,0 +1,6 @@
+framework module LightIoC {
+  umbrella header "LightIoC-umbrella.h"
+
+  export *
+  module * { export * }
+}

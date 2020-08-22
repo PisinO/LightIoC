@@ -1,0 +1,22 @@
+{
+  "name": "LightIoC",
+  "version": "0.1.0",
+  "summary": "A short description of LightIoC.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/Ondrej Pisin/LightIoC",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Ondrej Pisin": "ondrej.pisin@accolade.com"
+  },
+  "source": {
+    "git": "https://github.com/Ondrej Pisin/LightIoC.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "LightIoC/Classes/**/*"
+}
