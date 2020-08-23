@@ -42,7 +42,7 @@ class Type: TypeService {
 }
 
 protocol NotReferencedService { }
-
+class NotReferenced: NotReferencedService { }
 
 
 struct ReferenceTestModule: IoCModule {
@@ -164,6 +164,116 @@ struct TwoSameTypesTestModule: IoCModule {
             print(error.localizedDescription)
             
             guard case IoCError.alreadyRegistered(_) = error else {
+                return XCTFail()
+            }
+            
+            return
+        } catch {
+            XCTFail()
+        }
+        
+        XCTFail()
+    }
+}
+
+// MARK: - Overwrite
+
+class MockSingleton: SingletonService {
+    var id: String {
+        return "\(MockSingleton.self)"
+    }
+}
+
+class MockLazySingleton: LazySingletonService {
+    var id: String {
+        return "\(MockLazySingleton.self)"
+    }
+}
+
+class MockType: TypeService {
+    var id: String {
+        return "\(MockType.self)"
+    }
+}
+
+struct SingletonOverwriteModule: IoCOverwriteModule {
+    func register(container: IoCOverwriteContainer) {
+        do {
+            try container.overwriteSingleton(SingletonService.self, with: MockSingleton())
+        } catch {
+            XCTFail()
+        }
+    }
+}
+
+struct LazySingletonOverwriteModule: IoCOverwriteModule {
+    func register(container: IoCOverwriteContainer) {
+        do {
+            try container.overwriteLazySingleton(LazySingletonService.self, with: { return MockLazySingleton() })
+        } catch {
+            XCTFail()
+        }
+    }
+}
+
+struct TypeOverwriteModule: IoCOverwriteModule {
+    func register(container: IoCOverwriteContainer) {
+        do {
+            try container.overwriteType(TypeService.self, with: { return MockType() })
+        } catch {
+            XCTFail()
+        }
+    }
+}
+
+struct NotRegisteredSingletonOverwriteModule: IoCOverwriteModule {
+    func register(container: IoCOverwriteContainer) {
+        do {
+            try container.overwriteSingleton(NotReferencedService.self, with: NotReferenced())
+        } catch let error as IoCError {
+            print(error.localizedDescription)
+            
+            guard case IoCError.notRegistered(_) = error else {
+                return XCTFail()
+            }
+            
+            return
+        } catch {
+            XCTFail()
+        }
+        
+        XCTFail()
+    }
+}
+
+struct NotRegisteredLazySingletonOverwriteModule: IoCOverwriteModule {
+    func register(container: IoCOverwriteContainer) {
+        do {
+            try container.overwriteLazySingleton(NotReferencedService.self, with: { return NotReferenced() })
+        } catch let error as IoCError {
+            print(error.localizedDescription)
+            
+            guard case IoCError.notRegistered(_) = error else {
+                return XCTFail()
+            }
+            
+            return
+        } catch {
+            XCTFail()
+        }
+        
+        XCTFail()
+    }
+}
+
+struct NotRegisteredTypeOverwriteModule: IoCOverwriteModule {
+    func register(container: IoCOverwriteContainer) {
+        do {
+            try container.overwriteType(NotReferencedService.self, with: { return NotReferenced() })
+        } catch let error as IoCError {
+            print(error.localizedDescription)
+            
+            guard case IoCError.notRegistered(_) = error else {
                 return XCTFail()
             }
             

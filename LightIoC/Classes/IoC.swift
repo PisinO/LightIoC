@@ -79,7 +79,7 @@ public class IoC {
         module.register(container: IoCInternal.container)
     }
     
-    public static func registerAndOvewrite(_ module: IoCOverwriteModule) {
+    public static func registerAndOverwrite(_ module: IoCOverwriteModule) {
         module.register(container: IoCInternal.container)
     }
 }
