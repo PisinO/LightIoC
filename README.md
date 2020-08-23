@@ -11,7 +11,13 @@ LightIoC is an easy-to-use Dependency Injection (DI) framework for Swift, implem
 
 ## Why to use DI
 
-DI guides you to make **SOLID** applications, to cover your classes behind protocols so they are easily testable and not to hide dependencies. See this short yet informative article on [medium.com](https://medium.com/@mari_azevedo/s-o-l-i-d-principles-what-are-they-and-why-projects-should-use-them-50b85e4aa8b6) about solid principles
+DI guides you to make **SOLID** applications.
+- Cover your classes behind protocols so they are easily testable, just change module registration in your Test project with mocked classes.
+- Do not hide class dependencies, you can see all dependencies enlisted in class and recognizable with @Dependency syntax.
+- You don't have to write singletons with `class.shared.func` syntax anymore, register class as singleton and just call the variable `class.func`, DI will take care of object life-cycle
+- DI container validates all dependencies right after start and tells you whether they all can be constructed
+
+See this short yet informative article on [medium.com](https://medium.com/@mari_azevedo/s-o-l-i-d-principles-what-are-they-and-why-projects-should-use-them-50b85e4aa8b6) about solid principles.
 
 ## Installation
 
