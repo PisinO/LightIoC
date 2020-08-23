@@ -1,6 +1,7 @@
 # LightIoC
 
 ![CI Status](https://github.com/PisinO/LightIoC/workflows/CI/badge.svg)
+![Codecov](https://img.shields.io/codecov/c/github/PisinO/LightIoC)
 [![Version](https://img.shields.io/cocoapods/v/LightIoC.svg?style=flat)](https://cocoapods.org/pods/LightIoC)
 [![License](https://img.shields.io/cocoapods/l/LightIoC.svg?style=flat)](https://cocoapods.org/pods/LightIoC)
 [![Platform](https://img.shields.io/cocoapods/p/LightIoC.svg?style=flat)](https://cocoapods.org/pods/LightIoC)
