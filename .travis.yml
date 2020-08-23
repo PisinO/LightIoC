@@ -1,9 +1,0 @@
-language: objective-c
-osx_image: xcode10.6
-xcode_workspace: LightIoC.xcworkspace
-xcode_scheme: LightIoC-Example
-xcode_destination: platform=iOS Simulator,OS=13.6,name=iPhone 11
-before_install:
-- cd Example
-after_success:
-- bash <(curl -s https://codecov.io/bash)
