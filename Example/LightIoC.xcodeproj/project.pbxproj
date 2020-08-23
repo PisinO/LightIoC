@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		2A12C64A24F1819C002A3C0C /* AssertUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12C64424F1819C002A3C0C /* AssertUtil.swift */; };
 		2A12C64B24F1819C002A3C0C /* TestModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12C64524F1819C002A3C0C /* TestModuleFactory.swift */; };
-		2A12C64C24F1819C002A3C0C /* TestModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12C64624F1819C002A3C0C /* TestModule.swift */; };
 		2A12C64D24F1819C002A3C0C /* IoCErrorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12C64824F1819C002A3C0C /* IoCErrorTests.swift */; };
 		2A12C64E24F1819C002A3C0C /* IoCReferencesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12C64924F1819C002A3C0C /* IoCReferencesTests.swift */; };
 		3BB9CA380AE02E6775BA83CB /* Pods_LightIoC_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA39808D0DC811E4C4189213 /* Pods_LightIoC_Tests.framework */; };
@@ -18,7 +17,6 @@
 /* Begin PBXFileReference section */
 		2A12C64424F1819C002A3C0C /* AssertUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssertUtil.swift; sourceTree = "<group>"; };
 		2A12C64524F1819C002A3C0C /* TestModuleFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestModuleFactory.swift; sourceTree = "<group>"; };
-		2A12C64624F1819C002A3C0C /* TestModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestModule.swift; sourceTree = "<group>"; };
 		2A12C64824F1819C002A3C0C /* IoCErrorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IoCErrorTests.swift; sourceTree = "<group>"; };
 		2A12C64924F1819C002A3C0C /* IoCReferencesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IoCReferencesTests.swift; sourceTree = "<group>"; };
 		49BCCA1D246AD934C0BED702 /* LightIoC.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LightIoC.podspec; path = ../LightIoC.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -93,7 +91,6 @@
 			isa = PBXGroup;
 			children = (
 				2A12C64324F1819C002A3C0C /* Helpers */,
-				2A12C64624F1819C002A3C0C /* TestModule.swift */,
 				2A12C64724F1819C002A3C0C /* Tests */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
@@ -154,7 +151,7 @@
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
+				LastSwiftUpdateCheck = 1160;
 				LastUpgradeCheck = 1160;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
@@ -244,7 +241,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A12C64D24F1819C002A3C0C /* IoCErrorTests.swift in Sources */,
-				2A12C64C24F1819C002A3C0C /* TestModule.swift in Sources */,
 				2A12C64E24F1819C002A3C0C /* IoCReferencesTests.swift in Sources */,
 				2A12C64B24F1819C002A3C0C /* TestModuleFactory.swift in Sources */,
 				2A12C64A24F1819C002A3C0C /* AssertUtil.swift in Sources */,
