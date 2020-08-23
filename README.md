@@ -1,5 +1,6 @@
 # LightIoC
 
+https://github.com/PisinO/LightIoC/workflows/swift/badge.svg
 [![CI Status](https://img.shields.io/travis/PisinO/LightIoC.svg?style=flat)](https://travis-ci.org/PisinO/LightIoC)
 [![Version](https://img.shields.io/cocoapods/v/LightIoC.svg?style=flat)](https://cocoapods.org/pods/LightIoC)
 [![License](https://img.shields.io/cocoapods/l/LightIoC.svg?style=flat)](https://cocoapods.org/pods/LightIoC)
