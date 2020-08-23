@@ -17,7 +17,7 @@ class IoCReferencesTests: XCTestCase {
     @Dependency private var notReferencedService: NotReferencedService
     
     override func setUpWithError() throws {
-        IoC.register(ReferenceTestModule())
+        IoC.register(module: ReferenceTestModule())
     }
     
     override func tearDownWithError() throws {

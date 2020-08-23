@@ -16,7 +16,7 @@ class IoCOverwriteTests: XCTestCase {
     @Dependency private var singletonService: SingletonService
     
     override func setUpWithError() throws {
-        IoC.register(ReferenceTestModule())
+        IoC.register(module: ReferenceTestModule())
     }
     
     override func tearDownWithError() throws {
@@ -24,32 +24,32 @@ class IoCOverwriteTests: XCTestCase {
     }
     
     func testTestClassOverwritesSingleton() {
-        IoC.registerAndOverwrite(SingletonOverwriteModule())
+        IoC.registerAndOverwrite(module: SingletonOverwriteModule())
         
         XCTAssertEqual(singletonService.id, "\(MockSingleton.self)")
     }
     
     func testTestClassOverwritesLazySingleton() {
-        IoC.registerAndOverwrite(LazySingletonOverwriteModule())
+        IoC.registerAndOverwrite(module: LazySingletonOverwriteModule())
         
         XCTAssertEqual(lazySingletonService.id, "\(MockLazySingleton.self)")
     }
     
     func testTestClassOverwritesType() {
-        IoC.registerAndOverwrite(TypeOverwriteModule())
+        IoC.registerAndOverwrite(module: TypeOverwriteModule())
         
         XCTAssertEqual(typeService.id, "\(MockType.self)")
     }
     
     func testOverwriteOfNotRegisteredSingletonFails() {
-        IoC.registerAndOverwrite(NotRegisteredSingletonOverwriteModule())
+        IoC.registerAndOverwrite(module: NotRegisteredSingletonOverwriteModule())
     }
     
     func testOverwriteOfNotRegisteredLazySingletonFails() {
-        IoC.registerAndOverwrite(NotRegisteredLazySingletonOverwriteModule())
+        IoC.registerAndOverwrite(module: NotRegisteredLazySingletonOverwriteModule())
     }
     
     func testOverwriteOfNotRegisteredTypeFails() {
-        IoC.registerAndOverwrite(NotRegisteredTypeOverwriteModule())
+        IoC.registerAndOverwrite(module: NotRegisteredTypeOverwriteModule())
     }
 }

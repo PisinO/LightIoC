@@ -75,11 +75,11 @@ public protocol IoCOverwriteModule {
 public class IoC {
     /// Register module
     /// - Parameter module: Module with registrations
-    public static func register(_ module: IoCModule) {
+    public static func register(module: IoCModule) {
         module.register(container: IoCInternal.container)
     }
     
-    public static func registerAndOverwrite(_ module: IoCOverwriteModule) {
+    public static func registerAndOverwrite(module: IoCOverwriteModule) {
         module.register(container: IoCInternal.container)
     }
 }

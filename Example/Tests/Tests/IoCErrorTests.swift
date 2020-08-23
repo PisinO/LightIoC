@@ -16,27 +16,27 @@ class IoCErrorTests: XCTestCase {
     }
     
     func testSingletonWithWrongInterfaceDoesntRegister() {
-        IoC.register(WrongSingletonTypeTestModule())
+        IoC.register(module: WrongSingletonTypeTestModule())
     }
     
     func testLazySingletonWithWrongInterfaceDoesntRegister() {
-        IoC.register(WrongLazySingletonTypeTestModule())
+        IoC.register(module: WrongLazySingletonTypeTestModule())
     }
     
     func testTypeWithWrongInterfaceDoesntRegister() {
-        IoC.register(WrongTypeTestModule())
+        IoC.register(module: WrongTypeTestModule())
     }
     
     func testRegisterSameSingletonFails() {
-        IoC.register(TwoSameSingletonsTestModule())
+        IoC.register(module: TwoSameSingletonsTestModule())
     }
     
     func testRegisterSameLazySingletonFails() {
-        IoC.register(TwoSameLazySingletonsTestModule())
+        IoC.register(module: TwoSameLazySingletonsTestModule())
     }
     
     func testRegisterSameTypeFails() {
-        IoC.register(TwoSameTypesTestModule())
+        IoC.register(module: TwoSameTypesTestModule())
     }
     
     func testErrorDescription() {
