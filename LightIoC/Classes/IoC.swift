@@ -91,7 +91,11 @@ public class IoC {
 final class IoCInternal {
     fileprivate static let container = IoCInternal()
     
-    private init() {}
+    private let lock: NSRecursiveLock
+    
+    private init() {
+        self.lock = NSRecursiveLock()
+    }
     
     private var singletons: [ObjectIdentifier: AnyObject] = [:]
     private var lazySingletons: [ObjectIdentifier: () -> AnyObject] = [:]
@@ -192,31 +196,43 @@ extension IoCInternal: IoCOverwriteContainer {
 extension IoCInternal {
     
     func resolve<T>(_ wrapper: Dependency<T>) throws -> T {
-        // Ignore optionals
-        if !wrapper.isOptional && !IoCInternal.container.validate(type: ObjectIdentifier(T.self)) {
-            throw IoCError.notRegistered(T.self)
+        func resolve_internal<T>(_ wrapper: Dependency<T>) throws -> T {
+            // Ignore optionals
+            if !wrapper.isOptional && !IoCInternal.container.validate(type: ObjectIdentifier(T.self)) {
+                throw IoCError.notRegistered(T.self)
+            }
+            
+            return try resolve(T.self)
         }
         
-        return try resolve(T.self)
+        return try synchronized(self.lock) { () -> T in
+            return try resolve_internal(wrapper)
+        }
     }
     
     func resolve<T>(_ interface: T.Type) throws -> T {
-        let id = ObjectIdentifier(interface)
+        func resolve_internal<T>(_ interface: T.Type) throws -> T {
+            let id = ObjectIdentifier(interface)
 
-        if let typeConstruct = typeConstructs[id] {
-            return typeConstruct() as! T
+            if let typeConstruct = typeConstructs[id] {
+                return typeConstruct() as! T
+            }
+            
+            if let lazyValue = lazySingletons.removeValue(forKey: id) {
+                singletons[id] = lazyValue()
+            }
+            
+            if let singleton = singletons[id] {
+                return singleton as! T
+            }
+
+            // Can't happen with internal resolve
+            throw IoCError.notRegistered(T.self)
         }
         
-        if let lazyValue = lazySingletons.removeValue(forKey: id) {
-            singletons[id] = lazyValue()
+        return try synchronized(self.lock) { () -> T in
+            return try resolve_internal(interface)
         }
-        
-        if let singleton = singletons[id] {
-            return singleton as! T
-        }
-
-        // Can't happen with internal resolve
-        throw IoCError.notRegistered(T.self)
     }
     
     func validate(type: ObjectIdentifier) -> Bool {

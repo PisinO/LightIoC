@@ -13,6 +13,7 @@ class IoCReferencesTests: XCTestCase {
     
     @Dependency private var typeService: TypeService
     @Dependency private var lazySingletonService: LazySingletonService
+    @Dependency private var singletonService: SingletonService
     
     @Dependency private var notReferencedService: NotReferencedService
     
@@ -109,5 +110,37 @@ class IoCReferencesTests: XCTestCase {
         expectFatalError(expectedMessage: "IoC fatal error: \(IoCError.notRegistered(NotReferencedService.self).localizedDescription)") {
             let _ = self.notReferencedService
         }
+    }
+    
+    func testThreadSafeResolve() {
+        let dg = DispatchGroup()
+        let exp = expectation(description: "\(#function)\(#line)")
+        
+        DispatchQueue.concurrentPerform(iterations: 10) { (index) in
+            dg.enter()
+            DispatchQueue.global().async {
+                for _ in 0..<10000 {
+                    do {
+                        let _ = try IoCInternal.resolve(SingletonService.self)
+                        let _ = try IoCInternal.resolve(self._singletonService)
+                        
+                        let _ = try IoCInternal.resolve(LazySingletonService.self)
+                        let _ = try IoCInternal.resolve(self._lazySingletonService)
+                        
+                        let _ = try IoCInternal.resolve(TypeService.self)
+                        let _ = try IoCInternal.resolve(self._typeService)
+                    } catch {
+                        XCTFail(error.localizedDescription)
+                    }
+                }
+                dg.leave()
+            }
+        }
+
+        dg.notify(queue: DispatchQueue.main) {
+            exp.fulfill()
+        }
+        
+        self.waitForExpectations(timeout: 5, handler: nil)
     }
 }
