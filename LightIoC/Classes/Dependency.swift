@@ -27,7 +27,6 @@ public class Dependency<Value> {
             let errorDescription = (error as? IoCError)?.localizedDescription ?? "Unknown"
             fatalError("IoC fatal error: \(errorDescription)")
         }
-        
     }
 
     public init() {

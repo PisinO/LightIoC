@@ -1,5 +1,5 @@
 # LightIoC
-> Light IoC Container for Swift.
+> Light IoC container for Swift.
 
 ![CI Status](https://github.com/PisinO/LightIoC/workflows/CI/badge.svg)
 ![Codecov](https://img.shields.io/codecov/c/github/PisinO/LightIoC)
@@ -33,7 +33,7 @@ pod 'LightIoC'
 
 There are tests included covering whole framework as example, clone the repo, and run `pod install`. Then you can run test scheme `LightIoC-Example`.
 
-## Usage example
+## Usage
 
 #### 1) Define you service, protocol and module
 ```swift
@@ -64,9 +64,9 @@ struct DatabaseLayerModule: IoCModule {
 class AppDelegate: UIResponder, UIApplicationDelegate {
         func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        IoC.registerModule(DatabaseLayerModule())
+        IoC.register(module: DatabaseLayerModule())
 
-        // IoC.registerModule(BusinessLayerModule())
+        // IoC.register(module: BusinessLayerModule())
         // etc...
 
         return true
@@ -88,6 +88,32 @@ class ViewController: UIViewController {
     }
 }
 ```
+
+#### Overwrite
+
+You can overwrite already registered service with another instance/factory by calling `IoC.registerAndOverwrite(module:)`. Let's say you are writing tests and you want to change instance of database servis for mock service, so in your test just register another modul conforming to `IoCOverwriteModule` with both register and overwrite functions:
+
+```swift
+class MockSingleton: SingletonService {
+    let id: String = "mock singleton id"
+}
+
+struct MockDatabaseLayerModule: IoCOverwriteModule {
+    func register(container: IoCContainer) {
+        do {
+            try container.overwriteSingleton(SingletonService.self, MockSingleton())
+        } catch {
+            // Handle error
+        }
+    }
+}
+
+IoC.registerAndOverwrite(module: MockDatabaseLayerModule())
+```
+
+#### Thread-safe
+
+All resolves are thread-safe, the access to internal collections is synchronized.
 
 ## Requirements
 
