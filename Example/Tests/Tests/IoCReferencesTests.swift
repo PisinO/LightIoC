@@ -141,6 +141,6 @@ class IoCReferencesTests: XCTestCase {
             exp.fulfill()
         }
         
-        self.waitForExpectations(timeout: 5, handler: nil)
+        self.waitForExpectations(timeout: 30, handler: nil)
     }
 }
