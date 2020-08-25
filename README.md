@@ -1,5 +1,5 @@
 # LightIoC
-> Light IoC Container for Swift.
+> Light IoC container for Swift.
 
 ![CI Status](https://github.com/PisinO/LightIoC/workflows/CI/badge.svg)
 ![Codecov](https://img.shields.io/codecov/c/github/PisinO/LightIoC)
@@ -110,6 +110,10 @@ struct MockDatabaseLayerModule: IoCOverwriteModule {
 
 IoC.registerAndOverwrite(module: MockDatabaseLayerModule())
 ```
+
+#### Thread-safe
+
+All resolves are thread-safe, the access to internal collections is synchronized.
 
 ## Requirements
 
