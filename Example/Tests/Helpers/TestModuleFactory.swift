@@ -62,16 +62,8 @@ struct WrongSingletonTypeTestModule: IoCModule {
         do {
             try container.registerSingleton(LazySingleton.self, Singleton())
         } catch {
-            print(error.localizedDescription)
-            
-            guard case IoCError.doesntConform(_, _) = error else {
-                return XCTFail()
-            }
-            
-            return
+            XCTFail()
         }
-        
-        XCTFail()
     }
 }
 
@@ -80,16 +72,8 @@ struct WrongLazySingletonTypeTestModule: IoCModule {
         do {
             try container.registerLazySingleton(SingletonService.self, { return LazySingleton() })
         } catch {
-            print(error.localizedDescription)
-            
-            guard case IoCError.doesntConform(_, _) = error else {
-                return XCTFail()
-            }
-            
-            return
+            XCTFail()
         }
-        
-        XCTFail()
     }
 }
 
@@ -97,19 +81,9 @@ struct WrongTypeTestModule: IoCModule {
     func register(container: IoCContainer) {
         do {
             try container.registerType(LazySingleton.self, { return Type() })
-        } catch let error as IoCError {
-            print(error.localizedDescription)
-            
-            guard case IoCError.doesntConform(_, _) = error else {
-                return XCTFail()
-            }
-            
-            return
         } catch {
             XCTFail()
         }
-        
-        XCTFail()
     }
 }
 
