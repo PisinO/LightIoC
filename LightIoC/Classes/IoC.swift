@@ -115,10 +115,6 @@ final class IoCInternal {
     }
     
     private func registerSingleton<T, I: AnyObject>(_ interface: T.Type, _ instance: I, overwrite: Bool) throws {
-        guard instance.self is T else {
-            throw IoCError.doesntConform(I.self, T.self)
-        }
-        
         let id = ObjectIdentifier(interface)
         
         if !overwrite && singletons[id] != nil {
@@ -131,10 +127,6 @@ final class IoCInternal {
     }
     
     private func registerLazySingleton<T, I: AnyObject>(_ interface: T.Type, _ construct: @escaping () -> I, overwrite: Bool) throws {
-        guard I.self is T.Type else {
-            throw IoCError.doesntConform(I.self, T.self)
-        }
-        
         let id = ObjectIdentifier(interface)
         
         if !overwrite && lazySingletons[id] != nil {
@@ -147,10 +139,6 @@ final class IoCInternal {
     }
     
     private func registerType<T, I: AnyObject>(_ interface: T.Type, _ construct: @escaping () -> I, overwrite: Bool) throws {
-        guard I.self is T.Type else {
-            throw IoCError.doesntConform(I.self, T.self)
-        }
-        
         let id = ObjectIdentifier(interface)
         
         if !overwrite && typeConstructs[id] != nil {
@@ -219,7 +207,12 @@ extension IoCInternal {
             let id = ObjectIdentifier(interface)
 
             if let typeConstruct = typeConstructs[id] {
-                return typeConstruct() as! T
+                let result = typeConstruct()
+                guard let object = result as? T else {
+                    throw IoCError.doesntConform(type(of: result), T.self)
+                }
+                
+                return object
             }
             
             if let lazyValue = lazySingletons.removeValue(forKey: id) {
@@ -227,10 +220,13 @@ extension IoCInternal {
             }
             
             if let singleton = singletons[id] {
-                return singleton as! T
+                guard let object = singleton as? T else {
+                    throw IoCError.doesntConform(type(of: singleton), T.self)
+                }
+                
+                return object
             }
 
-            // Can't happen with internal resolve
             throw IoCError.notRegistered(T.self)
         }
         

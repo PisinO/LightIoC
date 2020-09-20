@@ -10,21 +10,37 @@ import XCTest
 @testable import LightIoC
 
 class IoCErrorTests: XCTestCase {
+    @Dependency private var singleton: SingletonService
+    @Dependency private var lazySingleton: LazySingleton
     
     override func tearDownWithError() throws {
         IoCInternal.clean()
     }
     
+    
     func testSingletonWithWrongInterfaceDoesntRegister() {
         IoC.register(module: WrongSingletonTypeTestModule())
+
+        expectFatalError(expectedMessage: "IoC fatal error: \(IoCError.doesntConform(Singleton.self, LazySingleton.self).localizedDescription)") {
+            let _ = self.lazySingleton
+        }
     }
-    
+
     func testLazySingletonWithWrongInterfaceDoesntRegister() {
         IoC.register(module: WrongLazySingletonTypeTestModule())
+        
+        expectFatalError(expectedMessage: "IoC fatal error: \(IoCError.doesntConform(LazySingleton.self, SingletonService.self).localizedDescription)") {
+            let _ = self.singleton
+        }
     }
+    
     
     func testTypeWithWrongInterfaceDoesntRegister() {
         IoC.register(module: WrongTypeTestModule())
+        
+        expectFatalError(expectedMessage: "IoC fatal error: \(IoCError.doesntConform(Type.self, LazySingleton.self).localizedDescription)") {
+            let _ = self.lazySingleton
+        }
     }
     
     func testRegisterSameSingletonFails() {
