@@ -60,12 +60,16 @@ public protocol IoCOverwriteContainer: IoCContainer {
 
 public protocol IoCModule {
     
+    init()
+    
     /// Register all objects for specified module
     /// - Parameter container: Container instance for registrations
     func register(container: IoCContainer)
 }
 
 public protocol IoCOverwriteModule {
+    
+    init()
     
     /// Register all objects for specified module
     /// - Parameter container: Container instance for registrations
