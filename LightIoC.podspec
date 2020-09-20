@@ -8,10 +8,10 @@
 
 Pod::Spec.new do |s|
   s.name             = 'LightIoC'
-  s.version          = '1.2.0'
+  s.version          = '1.3.0'
   s.summary          = 'Light IoC Container for Swift.'
   s.description      = <<-DESC
-  LightIoC is an easy-to-use Dependency Injection (DI) framework for Swift 5.1 and above implementing automatic dependency injection. It manages object creation and it's life-time, and also injects dependencies to the class. The IoC container creates an object of the specified class and also injects all the dependency objects through properties at run time and disposes it at the appropriate time. This is done so that you don't have to create and manage objects manually.
+  LightIoC is an easy-to-use Dependency Injection (DI) framework for Swift 5.3 and above implementing automatic dependency injection. It manages object creation and it's life-time, and also injects dependencies to the class. The IoC container creates an object of the specified class and also injects all the dependency objects through properties at run time and disposes it at the appropriate time. This is done so that you don't have to create and manage objects manually.
                        DESC
 
   s.homepage         = 'https://github.com/PisinO/LightIoC'
